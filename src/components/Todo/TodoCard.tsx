@@ -1,12 +1,14 @@
 import { TTodo } from "@/redux/features/todoSlice";
 import { Button } from "../ui/button";
 import EditModal from "./EditModal";
-import { useUpdateTodoMutation } from "@/redux/api/api";
+import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
 
 const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
   const { title, description, isCompleted, priority } = todo;
   // const dispatch = useAppDispatch();
   const [updateTodo, { data, isError, isLoading }] = useUpdateTodoMutation();
+  const [deleteTodo, { isError: deleteError, isLoading: deleteLoading }] =
+    useDeleteTodoMutation();
 
   return (
     <div className="flex items-center justify-between border px-3 py-[6px] rounded-md shadow-sm text-base">
@@ -44,6 +46,7 @@ const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
         <Button
           className="bg-red-500"
           // onClick={() => dispatch(removeTodo(todo._id))}
+          onClick={() => deleteTodo(todo._id)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
