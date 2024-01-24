@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useUpdateTodoMutation } from "@/redux/api/api";
 
 type TPriority = "high" | "medium" | "low";
 
@@ -29,17 +30,19 @@ const EditModal: React.FC<{ todo: TTodo }> = ({ todo }) => {
   const [title, setTitle] = useState<string>(todo.title);
   const [description, setDescription] = useState<string>(todo.description);
   const [priority, setPriority] = useState<TPriority>(todo.priority);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const [updateTodo, { isError, isLoading, data }] = useUpdateTodoMutation();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const editedTodo: TTodo = {
-      id: todo.id,
+      // id: todo.id,
       title,
       description,
       priority,
       isCompleted: todo.isCompleted,
     };
-    dispatch(updateTodo(editedTodo));
+    // dispatch(updateTodo(editedTodo));
+    updateTodo({ id: todo._id, data: editedTodo });
     setTitle("");
     setDescription("");
   };

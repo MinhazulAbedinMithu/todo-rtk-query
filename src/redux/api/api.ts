@@ -28,10 +28,10 @@ export const baseApi = createApi({
       invalidatesTags: ["todo"],
     }),
     updateTodo: builder.mutation({
-      query: (data) => ({
-        url: `/todos/${data._id}`,
+      query: (options) => ({
+        url: `/todos/${options.id}`,
         method: "PATCH",
-        body: data,
+        body: options.data,
       }),
       invalidatesTags: ["todo"],
     }),

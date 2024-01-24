@@ -15,7 +15,9 @@ const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
         name="complete"
         id="complete"
         defaultChecked={isCompleted}
-        onChange={() => updateTodo({ ...todo, isCompleted: !isCompleted })}
+        onChange={() =>
+          updateTodo({ id: todo._id, data: { isCompleted: !todo.isCompleted } })
+        }
         // onChange={() => dispatch(toggleComplete(todo._id))}
       />
       <span>{title}</span>
