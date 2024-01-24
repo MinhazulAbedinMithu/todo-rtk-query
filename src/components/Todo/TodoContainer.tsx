@@ -1,28 +1,35 @@
-import { useAppSelector } from "@/redux/hooks";
 // import { Button } from "../ui/button";
 import AddModal from "./AddModal";
 import TodoCard from "./TodoCard";
 import { TTodo } from "@/redux/features/todoSlice";
 import FilterDropdown from "./FilterDropdown";
-// import { useGetTodosQuery } from "@/redux/api/api";
+import { useGetTodosQuery } from "@/redux/api/api";
+import { useState } from "react";
 
 const TodoContainer = () => {
-  const { filteredTodos } = useAppSelector((state) => state.todo);
-  // const { isLoading, isError, data: todos } = useGetTodosQuery(undefined);
+  const [filterPriority, setFilterPriority] = useState("");
+  // local state
+  // const { filteredTodos } = useAppSelector((state) => state.todo);
+
+  // server state
+  const { isLoading, isError, data: todos } = useGetTodosQuery(filterPriority);
 
   return (
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <AddModal />
 
-        <FilterDropdown />
+        <FilterDropdown
+          filterPriority={filterPriority}
+          setFilterPriority={setFilterPriority}
+        />
       </div>
       <div className="bg-primary-gradient p-[6px] rounded-xl my-5">
         <div className="bg-white p-4 rounded-xl space-y-3">
           {
             // todos.length > 0 ? (
-            filteredTodos?.map((todo: TTodo) => (
-              <TodoCard key={todo.id} todo={todo} />
+            todos?.map((todo: TTodo) => (
+              <TodoCard key={todo._id} todo={todo} />
             ))
             // ) : (
             //   <div>

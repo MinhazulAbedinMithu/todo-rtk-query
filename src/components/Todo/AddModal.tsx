@@ -11,8 +11,7 @@ import {
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useAppDispatch } from "@/redux/hooks";
-import { TTodo, addTodo } from "@/redux/features/todoSlice";
+import { TTodo } from "@/redux/features/todoSlice";
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useAddTodoMutation } from "@/redux/api/api";
 
 type TPriority = "high" | "medium" | "low";
 
@@ -30,17 +30,25 @@ const AddModal = () => {
   const [description, setDescription] = useState<string>("");
   const [priority, setPriority] = useState<TPriority>("high");
 
-  const dispatch = useAppDispatch();
+  /* For Local State Management */
+  // const dispatch = useAppDispatch();
+
+  /* For Server */
+  const [addTodo, { data, isError, isLoading, isSuccess }] =
+    useAddTodoMutation();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newTodo: TTodo = {
-      id: crypto.randomUUID(),
       title: todo,
       description,
       priority: priority,
       isCompleted: false,
     };
-    dispatch(addTodo(newTodo));
+    // dispatch(addTodo(newTodo)); //for local
+    // for server
+    addTodo(newTodo);
+
     setTodo("");
     setDescription("");
   };

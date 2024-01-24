@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type TFilter = "high" | "medium" | "low";
 export type TTodo = {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
   priority: "high" | "medium" | "low";
@@ -30,17 +30,17 @@ const todoSlice = createSlice({
     },
     updateTodo: (state: ITodoState, action: PayloadAction<TTodo>) => {
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload?.id ? action.payload : todo
+        todo._id === action.payload?._id ? action.payload : todo
       );
       state.filteredTodos = state.todos;
     },
     removeTodo: (state: ITodoState, action: PayloadAction<string>) => {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      state.todos = state.todos.filter((todo) => todo._id !== action.payload);
       state.filteredTodos = state.todos;
     },
     toggleComplete: (state: ITodoState, action: PayloadAction<string>) => {
       const newTodos: TTodo[] = state.todos.map((todo) =>
-        todo.id === action.payload
+        todo._id === action.payload
           ? { ...todo, isCompleted: !todo.isCompleted }
           : todo
       );

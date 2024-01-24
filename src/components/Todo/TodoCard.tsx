@@ -1,11 +1,10 @@
-import { TTodo, removeTodo, toggleComplete } from "@/redux/features/todoSlice";
+import { TTodo } from "@/redux/features/todoSlice";
 import { Button } from "../ui/button";
-import { useAppDispatch } from "@/redux/hooks";
 import EditModal from "./EditModal";
 
 const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
   const { title, description, isCompleted, priority } = todo;
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   return (
     <div className="flex items-center justify-between border px-3 py-[6px] rounded-md shadow-sm text-base">
@@ -14,7 +13,7 @@ const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
         name="complete"
         id="complete"
         defaultChecked={isCompleted}
-        onChange={() => dispatch(toggleComplete(todo.id))}
+        // onChange={() => dispatch(toggleComplete(todo._id))}
       />
       <span>{title}</span>
       <span>{description}</span>
@@ -39,7 +38,7 @@ const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
       <div className="space-x-3">
         <Button
           className="bg-red-500"
-          onClick={() => dispatch(removeTodo(todo.id))}
+          // onClick={() => dispatch(removeTodo(todo._id))}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
