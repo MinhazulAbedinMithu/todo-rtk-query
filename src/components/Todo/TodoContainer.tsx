@@ -12,7 +12,7 @@ const TodoContainer = () => {
   // const { filteredTodos } = useAppSelector((state) => state.todo);
 
   // server state
-  const { isLoading, isError, data: todos } = useGetTodosQuery(filterPriority);
+  const { data: todos } = useGetTodosQuery(filterPriority);
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -26,17 +26,13 @@ const TodoContainer = () => {
       </div>
       <div className="bg-primary-gradient p-[6px] rounded-xl my-5">
         <div className="bg-white p-4 rounded-xl space-y-3">
-          {
-            // todos.length > 0 ? (
-            todos?.map((todo: TTodo) => (
-              <TodoCard key={todo._id} todo={todo} />
-            ))
-            // ) : (
-            //   <div>
-            //     <h4 className="text-center text-2xl">There is no task</h4>
-            //   </div>
-            // )
-          }
+          {todos?.length > 0 ? (
+            todos?.map((todo: TTodo) => <TodoCard key={todo._id} todo={todo} />)
+          ) : (
+            <div>
+              <h4 className="text-center text-2xl">There is no task</h4>
+            </div>
+          )}
         </div>
       </div>
     </div>

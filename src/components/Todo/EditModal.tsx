@@ -11,8 +11,7 @@ import {
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useAppDispatch } from "@/redux/hooks";
-import { TTodo, updateTodo } from "@/redux/features/todoSlice";
+import { TTodo } from "@/redux/features/todoSlice";
 import {
   Select,
   SelectContent,
@@ -31,7 +30,7 @@ const EditModal: React.FC<{ todo: TTodo }> = ({ todo }) => {
   const [description, setDescription] = useState<string>(todo.description);
   const [priority, setPriority] = useState<TPriority>(todo.priority);
   // const dispatch = useAppDispatch();
-  const [updateTodo, { isError, isLoading, data }] = useUpdateTodoMutation();
+  const [updateTodo, {}] = useUpdateTodoMutation();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const editedTodo: TTodo = {

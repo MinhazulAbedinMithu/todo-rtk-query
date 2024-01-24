@@ -6,9 +6,8 @@ import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
 const TodoCard: React.FC<{ todo: TTodo }> = ({ todo }) => {
   const { title, description, isCompleted, priority } = todo;
   // const dispatch = useAppDispatch();
-  const [updateTodo, { data, isError, isLoading }] = useUpdateTodoMutation();
-  const [deleteTodo, { isError: deleteError, isLoading: deleteLoading }] =
-    useDeleteTodoMutation();
+  const [updateTodo, {}] = useUpdateTodoMutation();
+  const [deleteTodo, {}] = useDeleteTodoMutation();
 
   return (
     <div className="flex items-center justify-between border px-3 py-[6px] rounded-md shadow-sm text-base">
